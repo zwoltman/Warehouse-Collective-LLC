@@ -1,154 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Warehouse Collective</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&display=swap');
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    background: #080808;
-    color: #e8e8e0;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Share Tech Mono', monospace;
-    overflow: hidden;
-  }
-
-  /* subtle grid bg */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(200,255,0,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(200,255,0,0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
-    pointer-events: none;
-  }
-
-  .wrap {
-    text-align: center;
-    padding: 40px 24px;
-    max-width: 560px;
-    width: 100%;
-    animation: fadein 1.2s ease forwards;
-    opacity: 0;
-  }
-
-  @keyframes fadein {
-    to { opacity: 1; }
-  }
-
-  .logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(52px, 12vw, 96px);
-    letter-spacing: 0.04em;
-    line-height: 0.9;
-    color: #e8e8e0;
-    margin-bottom: 8px;
-  }
-
-  .logo span {
-    color: #c8ff00;
-  }
-
-  .sub {
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    color: #555;
-    margin-bottom: 48px;
-    text-transform: uppercase;
-  }
-
-  .tagline {
-    font-size: 13px;
-    letter-spacing: 0.08em;
-    color: #888;
-    margin-bottom: 32px;
-    text-transform: uppercase;
-  }
-
-  .form {
-    display: flex;
-    gap: 0;
-    max-width: 420px;
-    margin: 0 auto;
-  }
-
-  .form input {
-    flex: 1;
-    background: #111;
-    border: 1px solid #2a2a2a;
-    border-right: none;
-    color: #e8e8e0;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 13px;
-    padding: 14px 16px;
-    outline: none;
-    transition: border-color 0.2s;
-    letter-spacing: 0.05em;
-  }
-
-  .form input::placeholder { color: #444; }
-  .form input:focus { border-color: #c8ff00; }
-
-  .form button {
-    background: #c8ff00;
-    border: 1px solid #c8ff00;
-    color: #080808;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 16px;
-    letter-spacing: 0.1em;
-    padding: 14px 24px;
-    cursor: pointer;
-    transition: background 0.15s, color 0.15s;
-    white-space: nowrap;
-  }
-
-  .form button:hover {
-    background: #080808;
-    color: #c8ff00;
-  }
-
-  .confirm {
-    display: none;
-    font-size: 12px;
-    color: #c8ff00;
-    letter-spacing: 0.1em;
-    margin-top: 16px;
-    text-transform: uppercase;
-  }
-
-  .location {
-    margin-top: 48px;
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    color: #333;
-    text-transform: uppercase;
-  }
-</style>
-</head>
-<body>
-<div class="wrap">
-  <div class="logo">WAREHOUSE<br><span>COLLECTIVE</span></div>
-  <div class="sub">San Francisco</div>
-  <div class="tagline">Enroll for live events</div>
-
-  <div class="form">
-    <input type="email" id="email" placeholder="your@email.com" />
-    <button onclick="submit()">ENROLL</button>
-  </div>
-  <div class="confirm" id="confirm">// You're on the list.</div>
-
-  <div class="location">SAN FRANCISCO · EST. 2026</div>
-</div>
-
 <script>
   function submit() {
     const email = document.getElementById('email').value;
@@ -156,14 +5,35 @@
       document.getElementById('email').style.borderColor = '#e05c20';
       return;
     }
-    document.querySelector('.form').style.display = 'none';
-    document.getElementById('confirm').style.display = 'block';
-    // Hook up Mailchimp or any list here later
+
+    const button = document.querySelector('button');
+    button.textContent = '...';
+    button.disabled = true;
+
+    fetch('https://api.brevo.com/v3/contacts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'api-key': 'YOUR_API_KEY_HERE'
+      },
+      body: JSON.stringify({
+        email: email,
+        listIds: [2],
+        updateEnabled: true
+      })
+    })
+    .then(res => {
+      document.querySelector('.form').style.display = 'none';
+      document.getElementById('confirm').style.display = 'block';
+    })
+    .catch(err => {
+      button.textContent = 'ENROLL';
+      button.disabled = false;
+      document.getElementById('email').style.borderColor = '#e05c20';
+    });
   }
 
   document.getElementById('email').addEventListener('keydown', function(e) {
     if (e.key === 'Enter') submit();
   });
 </script>
-</body>
-</html>
