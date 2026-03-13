@@ -1,36 +1,12 @@
-<script>
+      <script>
   function submit() {
     const email = document.getElementById('email').value;
     if (!email || !email.includes('@')) {
       document.getElementById('email').style.borderColor = '#e05c20';
       return;
     }
-
-    const button = document.querySelector('button');
-    button.textContent = '...';
-    button.disabled = true;
-
-    fetch('https://api.brevo.com/v3/contacts', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'api-key': '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'
-      },
-      body: JSON.stringify({
-        email: email,
-        listIds: [2],
-        updateEnabled: true
-      })
-    })
-    .then(res => {
-      document.querySelector('.form').style.display = 'none';
-      document.getElementById('confirm').style.display = 'block';
-    })
-    .catch(err => {
-      button.textContent = 'ENROLL';
-      button.disabled = false;
-      document.getElementById('email').style.borderColor = '#e05c20';
-    });
+    document.querySelector('.form').style.display = 'none';
+    document.getElementById('confirm').style.display = 'block';
   }
 
   document.getElementById('email').addEventListener('keydown', function(e) {
