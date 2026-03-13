@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Warehouse Collective</title>
-<link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&display=swap');
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -67,84 +66,55 @@
     color: #333;
     text-transform: uppercase;
   }
-  /* Override Brevo styles */
-  .sib-form { background: transparent !important; padding: 0 !important; }
-  .sib-form-container { background: transparent !important; }
-  #sib-container {
-    background: transparent !important;
-    border: none !important;
-    border-radius: 0 !important;
-    max-width: 420px !important;
-    margin: 0 auto !important;
-    padding: 0 !important;
+  .form-row {
+    display: flex;
+    max-width: 420px;
+    margin: 0 auto;
   }
-  #sib-form { display: flex !important; gap: 0 !important; }
-  .sib-input { flex: 1 !important; padding: 0 !important; }
-  .form__entry { margin: 0 !important; }
-  .form__label-row { margin: 0 !important; }
-  .entry__field { margin: 0 !important; }
-  #sib-container input#EMAIL {
-    width: 100% !important;
-    background: #111 !important;
-    border: 1px solid #2a2a2a !important;
-    border-right: none !important;
-    color: #e8e8e0 !important;
-    font-family: 'Share Tech Mono', monospace !important;
-    font-size: 13px !important;
-    padding: 14px 16px !important;
-    outline: none !important;
-    border-radius: 0 !important;
-    letter-spacing: 0.05em !important;
-    height: 48px !important;
+  .form-row input {
+    flex: 1;
+    background: #111;
+    border: 1px solid #2a2a2a;
+    border-right: none;
+    color: #e8e8e0;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13px;
+    padding: 14px 16px;
+    outline: none;
+    border-radius: 0;
+    letter-spacing: 0.05em;
+    height: 48px;
+    -webkit-appearance: none;
   }
-  #sib-container input#EMAIL::placeholder { color: #444 !important; }
-  #sib-container input#EMAIL:focus { border-color: #c8ff00 !important; }
-  .sib-form-block { padding: 0 !important; }
-  .sib-form-block__button {
-    background: #c8ff00 !important;
-    border: 1px solid #c8ff00 !important;
-    color: #080808 !important;
-    font-family: 'Bebas Neue', sans-serif !important;
-    font-size: 16px !important;
-    letter-spacing: 0.1em !important;
-    padding: 0 24px !important;
-    height: 48px !important;
-    border-radius: 0 !important;
-    cursor: pointer !important;
-    white-space: nowrap !important;
-    font-weight: normal !important;
+  .form-row input::placeholder { color: #444; }
+  .form-row input:focus { border-color: #c8ff00; }
+  .form-row button {
+    background: #c8ff00;
+    border: 1px solid #c8ff00;
+    color: #080808;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    letter-spacing: 0.1em;
+    padding: 0 24px;
+    height: 48px;
+    border-radius: 0;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s, color 0.15s;
   }
-  .sib-form-block__button:hover {
-    background: #080808 !important;
-    color: #c8ff00 !important;
+  .form-row button:hover {
+    background: #080808;
+    color: #c8ff00;
   }
-  .entry__specification { display: none !important; }
-  .entry__error { display: none !important; }
-  #success-message {
-    background: transparent !important;
-    border: none !important;
-    color: #c8ff00 !important;
-    font-family: 'Share Tech Mono', monospace !important;
-    font-size: 12px !important;
-    letter-spacing: 0.1em !important;
-    text-transform: uppercase !important;
-    text-align: center !important;
-    padding: 16px 0 0 !important;
+  .msg {
+    margin-top: 16px;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    min-height: 20px;
   }
-  #success-message .sib-form-message-panel__text { color: #c8ff00 !important; }
-  #success-message svg { display: none !important; }
-  #error-message {
-    background: transparent !important;
-    border: none !important;
-    color: #e05c20 !important;
-    font-family: 'Share Tech Mono', monospace !important;
-    font-size: 12px !important;
-    text-align: center !important;
-    padding: 16px 0 0 !important;
-  }
-  #error-message svg { display: none !important; }
-  .sib-icon { display: none !important; }
-  input.input--hidden { display: none !important; }
+  .msg.success { color: #c8ff00; }
+  .msg.error { color: #e05c20; }
 </style>
 </head>
 <body>
@@ -153,64 +123,55 @@
   <div class="sub">San Francisco</div>
   <div class="tagline">Enroll for live events</div>
 
-  <div class="sib-form">
-    <div id="sib-form-container" class="sib-form-container">
-      <div id="error-message" class="sib-form-message-panel">
-        <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
-          <span class="sib-form-message-panel__inner-text">// Subscription failed. Try again.</span>
-        </div>
-      </div>
-      <div id="success-message" class="sib-form-message-panel">
-        <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
-          <span class="sib-form-message-panel__inner-text">// You're on the list.</span>
-        </div>
-      </div>
-      <div id="sib-container" class="sib-container--large sib-container--vertical">
-        <form id="sib-form" method="POST" action="https://53c4afeb.sibforms.com/serve/MUIFAE6s2CrDzKOvkGrfqvR6npHaqcJXcAlUoPWl4pb2l9l622pAV9fHAm1fdYrEGnudLXklkaGkqKRc9yaiRYh-K0HFRTd7iBJEj1BqPkDYSG16G0FKASsIsrQreQb_XVp6t0s5X4yxQMmPVLgp4JqpGg6ufRencwx83Wh6RAfTomt1fsubtZysmskdFqUs58YZ47NIq_qI7Cm_iQ==" data-type="subscription">
-          <div class="sib-input sib-form-block">
-            <div class="form__entry entry_block">
-              <div class="form__label-row">
-                <div class="entry__field">
-                  <input class="input" type="text" id="EMAIL" name="EMAIL" autocomplete="off" placeholder="your@email.com" data-required="true" required />
-                </div>
-              </div>
-              <label class="entry__error entry__error--primary"></label>
-            </div>
-          </div>
-          <div class="sib-form-block">
-            <button class="sib-form-block__button sib-form-block__button-with-loader" form="sib-form" type="submit">
-              <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512">
-                <path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z" />
-              </svg>
-              ENROLL
-            </button>
-          </div>
-          <input type="text" name="email_address_check" value="" class="input--hidden">
-          <input type="hidden" name="locale" value="en">
-        </form>
-      </div>
-    </div>
+  <div class="form-row">
+    <input type="email" id="email" placeholder="your@email.com" />
+    <button onclick="handleSubmit()">ENROLL</button>
   </div>
+  <div class="msg" id="msg"></div>
 
   <div class="location">SAN FRANCISCO · EST. 2026</div>
 </div>
 
 <script>
-  window.REQUIRED_CODE_ERROR_MESSAGE = 'Please choose a country code';
-  window.LOCALE = 'en';
-  window.EMAIL_INVALID_MESSAGE = window.SMS_INVALID_MESSAGE = "Invalid email. Please try again.";
-  window.REQUIRED_ERROR_MESSAGE = "This field cannot be left blank.";
-  window.GENERIC_INVALID_MESSAGE = "Invalid information. Please try again.";
-  window.translation = {
-    common: {
-      selectedList: '{quantity} list selected',
-      selectedLists: '{quantity} lists selected',
-      selectedOption: '{quantity} selected',
-      selectedOptions: '{quantity} selected',
+  function handleSubmit() {
+    const email = document.getElementById('email').value.trim();
+    const msg = document.getElementById('msg');
+
+    if (!email || !email.includes('@')) {
+      document.getElementById('email').style.borderColor = '#e05c20';
+      msg.textContent = '// invalid email.';
+      msg.className = 'msg error';
+      return;
     }
-  };
-  var AUTOHIDE = Boolean(0);
+
+    const btn = document.querySelector('.form-row button');
+    btn.textContent = '...';
+    btn.disabled = true;
+
+    const formData = new FormData();
+    formData.append('EMAIL', email);
+    formData.append('email_address_check', '');
+    formData.append('locale', 'en');
+
+    fetch('https://53c4afeb.sibforms.com/serve/MUIFAE6s2CrDzKOvkGrfqvR6npHaqcJXcAlUoPWl4pb2l9l622pAV9fHAm1fdYrEGnudLXklkaGkqKRc9yaiRYh-K0HFRTd7iBJEj1BqPkDYSG16G0FKASsIsrQreQb_XVp6t0s5X4yxQMmPVLgp4JqpGg6ufRencwx83Wh6RAfTomt1fsubtZysmskdFqUs58YZ47NIq_qI7Cm_iQ==', {
+      method: 'POST',
+      mode: 'no-cors',
+      body: formData
+    }).then(() => {
+      document.querySelector('.form-row').style.display = 'none';
+      msg.textContent = '// you\'re on the list.';
+      msg.className = 'msg success';
+    }).catch(() => {
+      btn.textContent = 'ENROLL';
+      btn.disabled = false;
+      msg.textContent = '// something went wrong. try again.';
+      msg.className = 'msg error';
+    });
+  }
+
+  document.getElementById('email').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') handleSubmit();
+  });
 </script>
-<script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
 </body>
 </html>
