@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WC — Master Checklist</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #f5f5f5;
+    color: #111;
+    font-size: 15px;
+    line-height: 1.5;
+    padding: 40px 20px 80px;
+  }
+  .container { max-width: 780px; margin: 0 auto; }
+  h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; letter-spacing: -0.3px; }
+  .subtitle { font-size: 13px; color: #888; margin-bottom: 32px; }
+  .progress-row { display: flex; align-items: center; gap: 12px; margin-bottom: 32px; }
+  .progress-bar { flex: 1; height: 6px; background: #ddd; border-radius: 3px; overflow: hidden; }
+  .progress-fill { height: 100%; background: #111; border-radius: 3px; transition: width 0.3s ease; }
+  .progress-label { font-size: 12px; color: #888; white-space: nowrap; min-width: 60px; text-align: right; }
+  .section { margin-bottom: 36px; }
+  .section-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #888; padding-bottom: 8px; border-bottom: 1px solid #e0e0e0; margin-bottom: 4px; }
+  .item { display: flex; align-items: flex-start; gap: 12px; padding: 10px 8px; border-radius: 6px; cursor: pointer; transition: background 0.1s; border-bottom: 1px solid #ebebeb; }
+  .item:last-child { border-bottom: none; }
+  .item:hover { background: #ececec; }
+  .item.done { opacity: 0.45; }
+  .item.done .item-text { text-decoration: line-through; }
+  .cb { width: 18px; height: 18px; border: 1.5px solid #bbb; border-radius: 4px; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; transition: all 0.15s; background: white; }
+  .item.done .cb { background: #111; border-color: #111; }
+  .cb::after { content: ''; display: none; width: 4px; height: 8px; border: 2px solid white; border-top: none; border-left: none; transform: rotate(45deg) translate(-1px, -1px); }
+  .item.done .cb::after { display: block; }
+  .item-body { flex: 1; }
+  .item-text { font-size: 14px; font-weight: 500; color: #111; }
+  .item-note { font-size: 12px; color: #888; margin-top: 1px; line-height: 1.5; }
+  .tag { display: inline-block; font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 3px; margin-left: 6px; vertical-align: middle; text-transform: uppercase; letter-spacing: 0.05em; }
+  .tag-now  { background: #fff0e0; color: #c05000; }
+  .tag-free { background: #e8f5e8; color: #2a7a2a; }
+  .tag-cost { background: #fff0e0; color: #b04000; }
+  .tag-legal { background: #eeeeff; color: #4040bb; }
+  .reset-btn { background: none; border: 1px solid #ccc; color: #888; font-size: 12px; padding: 6px 14px; border-radius: 4px; cursor: pointer; margin-top: 32px; display: block; }
+  .reset-btn:hover { border-color: #888; color: #333; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <h1>Warehouse Collective — Master Checklist</h1>
+  <p class="subtitle">Click to check off. Progress saves in your browser.</p>
+
+  <div class="progress-row">
+    <div class="progress-bar"><div class="progress-fill" id="fill"></div></div>
+    <div class="progress-label" id="pct">0 / 0</div>
+  </div>
+
+  <!-- 1. LEGAL & STRUCTURE -->
+  <div class="section">
+    <div class="section-title">1 · Legal & Business Structure — WC LLC</div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Form LLC at bizfile.sos.ca.gov <span class="tag tag-now">Do First</span></div><div class="item-note">$70 filing fee. 20 min online. Nothing else matters until this is done.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Get EIN from IRS — fax SS-4 to 855-641-6935 <span class="tag tag-free">Free</span></div><div class="item-note">Fax SS-4 + articles of organization. Cannot do until LLC confirmation email arrives at whcsf.events@gmail.com. Check spam.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Open Mercury business bank account <span class="tag tag-free">Free</span></div><div class="item-note">mercury.com — pending EIN. Never mix personal and business money.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Book SF entertainment attorney consult <span class="tag tag-cost">~$300</span></div><div class="item-note">Must happen before any equity is formalized or operating agreement signed.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Draft operating agreement with attorney <span class="tag tag-legal">Legal</span></div><div class="item-note">Equity split, decision process, profit distribution, exit terms. Nothing is binding without this.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">File Statement of Information <span class="tag tag-cost">$20</span></div><div class="item-note">Due June 9, 2026. bizfile.sos.ca.gov. Do not miss this deadline.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">File Warehouse Collective trademark with USPTO <span class="tag tag-cost">~$250–350</span></div><div class="item-note">uspto.gov — Class 41 entertainment services. File before you're big enough for someone to steal it.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Formalize equity splits for all team members <span class="tag tag-legal">Legal</span></div><div class="item-note">Zachary 46.5%, Arhaan 46.5%, Kian 2.5%, Vicki 1%, Tony 1%, Leanid 1%. Must be in writing after operating agreement is drafted.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Issue 1099 contractor agreements to Kian and Vicki <span class="tag tag-legal">Legal</span></div><div class="item-note">Both are independent contractors. Get signed agreements before any work is formalized.</div></div></div>
+  </div>
+
+  <!-- 2. DBA FRONT COMPANY -->
+  <div class="section">
+    <div class="section-title">2 · DBA — Pop-Up Front Company</div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Choose DBA name for pop-up events <span class="tag tag-now">Do First</span></div><div class="item-note">This is the public-facing name on flyers and tickets for early events. Keeps WC LLC identity separate and underground.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">File DBA (Fictitious Business Name) with county clerk</div><div class="item-note">Alameda County (Berkeley events) or SF County. ~$40-75. File at county clerk office or online. Required to do business under a name other than WC LLC.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Publish DBA notice in local newspaper</div><div class="item-note">California law requires publishing FBN in a local newspaper for 4 consecutive weeks. County clerk provides a list of qualifying papers. ~$50-100.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Open separate bank account or sub-account under DBA name</div><div class="item-note">Keep DBA event revenue separate from WC LLC operating funds. Mercury allows multiple accounts.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Set up separate email address for DBA</div><div class="item-note">All venue and artist communications for pop-up events go through DBA email, not WC LLC email.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Confirm DBA does not need entertainment permits for established venue events</div><div class="item-note">Hosting in a bar or established venue means the venue holds the permits. Confirm this with your attorney. DBA only needs to sign the venue rental agreement.</div></div></div>
+  </div>
+
+  <!-- 3. TEAM & EQUITY -->
+  <div class="section">
+    <div class="section-title">3 · Team & Equity</div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Call Arhaan — full alignment on equity, roles, and operating agreement</div><div class="item-note">Nothing is final until you two have verbal agreement on all terms before attorney drafts the document.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Call Vicki — pitch head of marketing role and confirm she's in</div><div class="item-note">Send onboarding doc immediately after call if she commits. Do not let her think about it for more than 48 hours.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Follow up with Kian — P&L first draft 7-day deadline</div><div class="item-note">24-month P&L model in Google Sheets. Hold him to the deadline.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Formally confirm Tony and Leanid with written agreements</div><div class="item-note">Both verbally discussed. Need signed contractor agreements with equity vesting terms before either does any official work.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Invite all team members to Notion HQ</div><div class="item-note">Arhaan, Kian, Vicki, Tony, Leanid. Each gets access to their relevant sections only.</div></div></div>
+  </div>
+
+  <!-- 4. VENUE — POP-UP -->
+  <div class="section">
+    <div class="section-title">4 · Venue Outreach — Pop-Up Events</div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Walk into Tap Haus Berkeley in person — pitch manager <span class="tag tag-now">When Back in Bay</span></div><div class="item-note">First target for pop-up. Go in person, not email. Ask for the manager, not a bartender. Have your pitch ready in 60 seconds.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Walk into Jupiter Berkeley in person — pitch manager</div><div class="item-note">Second target. Same approach. Bring a one-page event proposal with expected attendance and ticket price.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Build a target list of 10 Berkeley and SF bars with event space</div><div class="item-note">Research venues with capacity 100-300. Include Public Works, Brick and Mortar, DNA Lounge, Great Northern, Bottom of the Hill.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Pitch at least 3 venues before locking first event date</div><div class="item-note">Do not commit to a date until you have venue confirmation. Presale launch depends on having a real date and location.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Negotiate venue rental agreement — get terms in writing</div><div class="item-note">Confirm: rental fee or revenue split, capacity, sound system included or not, load-in time, security requirements, bar split if any.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Get certificate of insurance for venue rental</div><div class="item-note">Most venues require it. Event liability insurance for a pop-up is ~$100-200 per event. Get it before signing.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Confirm venue holds all necessary permits for live music and amplified sound</div><div class="item-note">Your DBA is renting their space and their permits cover the event. Confirm this explicitly before signing anything.</div></div></div>
+  </div>
+
+  <!-- 5. WAREHOUSE SEARCH -->
+  <div class="section">
+    <div class="section-title">5 · Warehouse Search — Permanent Venue</div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Call SF Planning Dept — confirm A-2 or UMU zoning for shortlist properties</div><div class="item-note">415-558-6378. Do before touring any property. Saves time if zoning doesn't allow entertainment use.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Tour 435 Potrero Ave — top lead <span class="tag tag-now">Priority</span></div><div class="item-note">10,000 SF, ~$20K/month, available now. Dogpatch. First property to tour when back in SF.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Tour secondary warehouse shortlist properties</div><div class="item-note">90 Welsh St, 40 Isis St, 83 Shotwell St, 22 Loomis St, 1890 Bryant St, 2715 Ingalls St, 1375 Fitzgerald Ave.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Hire commercial real estate attorney to review lease before signing <span class="tag tag-legal">Legal</span></div><div class="item-note">Never sign a commercial lease without attorney review. ~$500-1000 but saves you from catastrophic terms.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Negotiate lease terms — TI allowance, free rent period, exit clause</div><div class="item-note">Tenant Improvement allowance offsets build-out costs. Push for 1-3 months free rent while building out. Get a clause allowing exit if permits are denied.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Confirm parking, loading dock, and ventilation before signing</div><div class="item-note">No loading dock = nightmare for equipment. No ventilation = unbearable crowd heat. No parking = noise complaints from neighbors.</div></div></div>
+  </div>
+
+  <!-- 6. DJ & ARTIST BOOKING -->
+  <div class="section">
+    <div class="section-title">6 · DJ & Artist Booking</div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Build DJ target list for first pop-up — local Bay Area acts <span class="tag tag-now">This Week</span></div><div class="item-note">Arhaan's job. Target 2 local DJs for first pop-up. Budget $300-600 each. Search ResidentAdvisor SF listings for active local artists.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Research DJ contact methods — direct email vs booking agent</div><div class="item-note">Local DJs can usually be contacted directly via Instagram DM or email on their RA profile. Check RA artist pages for booking contact.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Send first DJ booking inquiry for pop-up</div><div class="item-note">Include: date, venue, capacity, offer, set length, equipment provided. Keep it short and professional.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Get signed performance agreement with each booked DJ</div><div class="item-note">Include: fee, set time, set length, cancellation terms, equipment requirements. Even for local acts. Always in writing.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Build a tiered booking wishlist for warehouse phase</div><div class="item-note">Tier 1 headliners $2-5K. Tier 2 support $500-1.5K. Tier 3 local openers $200-500.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Research standard tech riders before booking bigger acts</div><div class="item-note">Bigger artists specify exact gear, green room, hospitality. Know what you're agreeing to before you book.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Connect with SF and Oakland DJ collectives and promoter networks</div><div class="item-note">MÜLL SF, Underground SF, SF DJ Collective. These networks have rosters of bookable local talent and can recommend artists for your budget.</div></div></div>
+  </div>
+
+  <!-- 7. EQUIPMENT -->
+  <div class="section">
+    <div class="section-title">7 · Equipment</div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Confirm venue provides PA system for pop-up events</div><div class="item-note">Most bars have a house system. Confirm specs before booking. If not included, factor rental into event budget.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Confirm venue provides DJ booth and mixer for pop-up events</div><div class="item-note">If not, rent locally. SF audio rental companies: Rational Acoustics, Music City, Guitar Center Pro Audio.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Build equipment needs list for warehouse phase</div><div class="item-note">PA system, subwoofers, DJ booth, mixer, CDJs, lighting rig, lighting controller, fog machine, barricades. Price each item new vs used vs rental.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Get quotes from 3 SF audio equipment rental companies</div><div class="item-note">Compare per-event rental cost vs ownership cost over 12 events. Rent first, buy later once revenue is consistent.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Lock in a recurring sound engineer as a contractor</div><div class="item-note">Find one person, build a relationship. Bad sound kills your reputation. Pay them fairly every event.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Source a lighting operator for warehouse phase</div><div class="item-note">Separate from sound engineer. Lighting design is its own skill. Find someone who understands underground electronic event aesthetics.</div></div></div>
+  </div>
+
+  <!-- 8. FIRST EVENT PRODUCTION -->
+  <div class="section">
+    <div class="section-title">8 · First Event — Production</div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Lock venue and date for first pop-up <span class="tag tag-now">Priority</span></div><div class="item-note">Everything else depends on this. Target April or May 2026. No marketing, no presale, no announcement until this is confirmed.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Set ticket price and capacity target</div><div class="item-note">Target break-even at 60% capacity. Budget ~$6,000 for first event. Revenue target $6,100-6,400.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Launch presale tickets on Dice.fm before spending a dollar</div><div class="item-note">Sell tickets before confirming any paid vendors. If presale is weak, reassess before committing budget.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Hire photographer for first event <span class="tag tag-cost">~$200-400</span></div><div class="item-note">Event recap content is your biggest post-event asset. Book before the event not after.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Hire videographer for first event <span class="tag tag-cost">~$150-300</span></div><div class="item-note">Short recap video for Reels and TikTok. 30-60 seconds. This is your most important marketing content.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Arrange door staff and security for first event</div><div class="item-note">Minimum 2 people on door. Oakland requires 1 guard per 50 attendees. Confirm requirements with venue.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Create event run-of-show document</div><div class="item-note">Doors open time, set times, load-in time, load-out time, who is responsible for what. Every person working the event gets a copy.</div></div></div>
+  </div>
+
+  <!-- 9. T-SHIRTS & MERCH — 4/20 -->
+  <div class="section">
+    <div class="section-title">9 · T-Shirts & Merch — 4/20 Campaign</div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Finalize t-shirt graphic — export print-ready file <span class="tag tag-now">This Week</span></div><div class="item-note">4500x5400px, 300dpi, PNG with transparent background. Must be done before sending to printer.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Get quotes from 3 local screen print shops</div><div class="item-note">Need quote for ~50 shirts minimum. Ask about turnaround time — must arrive before April 20. Gildan or Bella Canvas blank preferred.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Decide shirt quantity, sizes, and colors <span class="tag tag-cost">~$400-800 for 50 shirts</span></div><div class="item-note">Black shirt only. Size split: S x5, M x15, L x20, XL x8, XL x2. Order slightly more than you plan to give out.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Place shirt order with enough lead time for delivery before 4/20</div><div class="item-note">Most screen printers need 7-14 business days. Order no later than April 1 to be safe.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Design and print flyers for 4/18 Cal Day and 4/20 <span class="tag tag-cost">~$50-100</span></div><div class="item-note">Include QR code linking to warehousecollectivellc.com for email capture. Print at least 500 flyers. FedEx or Staples same-day printing available.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Finalize QR code for flyers — test it links correctly to website</div><div class="item-note">Generate at qr-code-generator.com. Test on multiple phones before printing. A broken QR code on 500 flyers is a disaster.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Recruit brand ambassadors for 4/20 distribution — Vicki's job</div><div class="item-note">Need 4-6 attractive, social people on campus. Brief them on what to say and what not to say. Comp: free shirt + entry to first event.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Coordinate pizza logistics for 4/20 <span class="tag tag-cost">~$100-200</span></div><div class="item-note">Free pizza draws a crowd. Decide quantity, which pizza place, who picks it up and when, where you're distributing from on campus.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Assign roles for 4/18 and 4/20 — who does what, where, and when</div><div class="item-note">Flyer zones on campus, who hands out shirts, who hands out pizza, who films content. Written plan, not verbal.</div></div></div>
+  </div>
+
+  <!-- 10. SOCIAL MEDIA CAMPAIGN -->
+  <div class="section">
+    <div class="section-title">10 · Social Media Campaign</div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Post first Instagram grid post <span class="tag tag-now">Tonight</span></div><div class="item-note">Logo on black background or best dossier graphic. Caption: one line only. No hashtags visible — put them in first comment.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Post first TikTok video</div><div class="item-note">Manifesto video or slow zoom on dossier graphic with dark music. 10-25 seconds. Repost immediately to Instagram Reels.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Download CapCut for video editing <span class="tag tag-free">Free</span></div><div class="item-note">Best free mobile video editor. All video content gets made here before posting.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Set Instagram profile photo to WC logo</div><div class="item-note">Crosshair logo on black background. 1:1 square crop. Must be clean and legible at small size.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Write and lock Instagram bio</div><div class="item-note">3 lines max. No fluff. Include city and website link. Bio should feel like a classified document entry.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Add warehousecollectivellc.com to Instagram link in bio</div><div class="item-note">This is how email list subscribers come from social. Every post drives to the link in bio.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Build 30-day content calendar for April and May — Vicki's job</div><div class="item-note">One post per day minimum on TikTok. 3 grid posts per week on Instagram. 5-10 stories per day.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Recruit and brief brand ambassadors — Vicki's job</div><div class="item-note">4-6 people. Attractive and social. Post as themselves, not as WC. WC appears in their life organically. Never identified as paid.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Write brand ambassador brief — what they post, how often, what they get</div><div class="item-note">Comp: free entry + merch + $25-50 per event attended and posted about. Written brief so everyone knows the rules.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Submit RA event listing for first confirmed event</div><div class="item-note">ResidentAdvisor account already created. Submit at least 2 weeks before event date.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Post event to all SF nightlife Facebook groups and Reddit</div><div class="item-note">r/sanfrancisco, r/bayarea, SF nightlife Facebook groups. Post 1 week before event and day of.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Submit event to 19hz.info Bay Area underground listings <span class="tag tag-free">Free</span></div><div class="item-note">19hz.info is the underground Bay Area event calendar. Underground heads check this religiously.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Build SF media contact list for PR outreach — Vicki's job</div><div class="item-note">SF Weekly, 48hills.org, KQED Arts, RA editorial. 10 contacts minimum. Build before first event, pitch after.</div></div></div>
+  </div>
+
+  <!-- 11. DIGITAL INFRASTRUCTURE -->
+  <div class="section">
+    <div class="section-title">11 · Digital Infrastructure</div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Confirm Dice.fm promoter account approval <span class="tag tag-free">Free</span></div><div class="item-note">Submitted. Follow up if no response within 7 days. Need this approved before first event ticketing.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Set up Cloudflare for warehousecollectivellc.com domain <span class="tag tag-free">Free</span></div><div class="item-note">Faster load times, DDoS protection, free SSL. Takes 10 minutes. Go to cloudflare.com, add your domain.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Set up whcsf@warehousecollectivellc.com custom email <span class="tag tag-cost">~$6/mo</span></div><div class="item-note">Google Workspace. You need a custom domain email for professional outreach to venues, artists, and investors.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Test Brevo email capture on website — send test submission</div><div class="item-note">Confirm emails are landing in Brevo list correctly. Check confirmation email sends properly.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Build Brevo welcome email sequence for new subscribers</div><div class="item-note">At minimum: one welcome email sent immediately on signup. Short, on-brand, includes link to follow on Instagram.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Get Notion Plus free via Berkeley student verification</div><div class="item-note">notion.so/students — verify with berkeley.edu email. Unlocks unlimited blocks. Both Zachary and Arhaan should do this.</div></div></div>
+  </div>
+
+  <!-- 12. FUNDRAISING -->
+  <div class="section">
+    <div class="section-title">12 · Fundraising & Investors</div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Get Kian's 24-month P&L model completed</div><div class="item-note">7-day deadline from onboarding. No serious investor conversation happens without this.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Start investor list Google Doc — names only to start</div><div class="item-note">Every person in your and Arhaan's network who has money and might invest. Do not contact anyone yet. Just build the list first.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Apply to The House Fund — Arhaan applies <span class="tag tag-free">Free</span></div><div class="item-note">thehouse.fund — UC Berkeley student fund. Arhaan is a current student. Takes 20 minutes to apply.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Research Berkeley Angel Network application process</div><div class="item-note">Berkeley alumni angel investors. Research requirements and timeline before applying.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Set up Wefunder profile <span class="tag tag-free">Free to start</span></div><div class="item-note">wefunder.com — crowdfunding from your audience. Your fans become your investors. Set up profile now, launch campaign after first successful event.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Define investor terms — finalize revenue share and equity structure</div><div class="item-note">Current proposal: 20% revenue share until $150K returned, then 10% equity. Must be reviewed by attorney before presenting to investors.</div></div></div>
+  </div>
+
+  <!-- 13. PERMITS — WAREHOUSE PHASE -->
+  <div class="section">
+    <div class="section-title">13 · Permits & Licenses — Warehouse Phase</div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Apply for SF Place of Entertainment permit <span class="tag tag-cost">~$1,500</span></div><div class="item-note">SF Entertainment Commission, 49 S Van Ness Suite 1482. Meets 1st and 3rd Tuesday. Apply after lease is signed.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Contact SF Fire Dept for Place of Assembly permit <span class="tag tag-cost">Fee varies</span></div><div class="item-note">Required for 50+ capacity. Call 628-652-3260. Fire inspection required before opening.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Apply for ABC Type 48 bar license <span class="tag tag-cost">~$13,800</span></div><div class="item-note">6-18 month process. Apply as early as possible. Use Type 58 caterer permit for pop-up phase in the meantime.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Get business license from SF Office of the Treasurer <span class="tag tag-cost">~$90/yr</span></div><div class="item-note">Required for any business operating in SF. Apply at sftreasurer.org.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Conduct ADA compliance audit before build-out</div><div class="item-note">Ramps, accessible bathrooms, clear sight lines. Non-compliance = permit denial or lawsuit.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Install CCTV security camera system</div><div class="item-note">Required by some SF entertainment permits. Cover all entrances, exits, and bar area.</div></div></div>
+  </div>
+
+  <!-- 14. INSURANCE -->
+  <div class="section">
+    <div class="section-title">14 · Insurance</div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Get event liability insurance for first pop-up <span class="tag tag-cost">~$100-200/event</span></div><div class="item-note">Most venues require it. Search "event liability insurance one day" — providers include Markel, Eventhelper, and Wedsafe.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Get general liability insurance policy for WC LLC <span class="tag tag-cost">~$500-1,500/yr</span></div><div class="item-note">Covers slip and falls, property damage, and other incidents. Required before signing a warehouse lease.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Get liquor liability insurance once bar opens <span class="tag tag-cost">~$1,500-3,000/yr</span></div><div class="item-note">Required with ABC license. Covers incidents involving alcohol service. Your attorney can recommend providers.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Research Kian's insurance recommendations — his deliverable</div><div class="item-note">Kian handles insurance research and risk assessment. Follow up on this after his P&L is complete.</div></div></div>
+  </div>
+
+  <!-- 15. TECHNOLOGY -->
+  <div class="section">
+    <div class="section-title">15 · Technology & Tools</div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Set up Google Workspace custom domain email <span class="tag tag-cost">~$6/mo</span></div><div class="item-note">You need whcsf@warehousecollectivellc.com not Gmail when emailing artists, landlords, and investors.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Set up Square or Stripe for door payments <span class="tag tag-free">Free to start</span></div><div class="item-note">For walk-up ticket sales and cash/card at the door. Integrate with ticketing so all sales are tracked in one place.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Download Adobe CC free via Berkeley — software.berkeley.edu <span class="tag tag-free">Free</span></div><div class="item-note">Both Zachary and Arhaan. Photoshop, Illustrator, Premiere. Use Illustrator to finalize the crosshair logo from SVG.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Get Figma Education free — figma.com/education <span class="tag tag-free">Free</span></div><div class="item-note">Berkeley email required. Use for logo finalization and brand asset management.</div></div></div>
+  </div>
+
+  <!-- 16. BUILD-OUT -->
+  <div class="section">
+    <div class="section-title">16 · Build-Out & Venue Setup — Warehouse Phase</div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Get acoustic treatment plan and budget</div><div class="item-note">Raw concrete warehouses have excessive reverb and bass buildup. Budget $5-15K for panels and bass traps minimum.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Get contractor quotes for build-out</div><div class="item-note">Bar build, bathrooms, lighting infrastructure, flooring, entrance. Get 3 quotes before committing.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Confirm electrical capacity for sound and lighting load</div><div class="item-note">Large PA systems draw serious power. Confirm the building's electrical panel can handle the load before signing.</div></div></div>
+  </div>
+
+  <!-- 17. STAFFING -->
+  <div class="section">
+    <div class="section-title">17 · Staffing</div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Identify licensed security company for warehouse phase <span class="tag tag-cost">~$35-50/hr per guard</span></div><div class="item-note">Not random door guys. A licensed SF security firm carries their own insurance. SF may legally require it for assembly events.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Find and vet bartenders for warehouse bar program</div><div class="item-note">They must have valid CA food handler cards. 1099 contractors for first phase. Background check recommended.</div></div></div>
+  </div>
+
+  <!-- 18. COMMUNITY & PRESS -->
+  <div class="section">
+    <div class="section-title">18 · Community & Press</div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Reach out to SF music press before first event <span class="tag tag-free">Free</span></div><div class="item-note">SF Weekly, 48hills.org, KQED Arts. Email them your story — two Berkeley students opening an independent warehouse venue. That is a story.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Reach out to MÜLL SF and Underground SF promoters</div><div class="item-note">Build relationships before you need them. Attend their events, introduce yourself, talk about collaboration. Do not cold pitch immediately.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">List WC on every SF nightlife and event directory <span class="tag tag-free">Free</span></div><div class="item-note">ResidentAdvisor, 19hz.info, Do SF, SF Station, Funcheap SF, Eventbrite. Every free listing is free marketing.</div></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"></div><div class="item-body"><div class="item-text">Create written noise complaint response protocol</div><div class="item-note">SF nightlife venues get shut down over this. Document exactly what you do when a complaint comes in.</div></div></div>
+  </div>
+
+  <button class="reset-btn" onclick="resetAll()">Reset all checkboxes</button>
+
+  <!-- LAMBO METER -->
+  <div style="margin-top: 48px; padding: 28px 24px; background: white; border-radius: 8px; border: 1px solid #e0e0e0;">
+    <div style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 20px;">Bitches &amp; Lambos Meter</div>
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 6px;">
+      <span style="font-size: 22px; flex-shrink:0;">🚶</span>
+      <div style="flex: 1; height: 22px; background: #f0f0f0; border-radius: 11px; overflow: hidden;">
+        <div id="lambo-fill" style="height: 100%; width: 0%; border-radius: 11px; background: linear-gradient(90deg, #bbb 0%, #555 60%, #111 100%); transition: width 0.6s cubic-bezier(0.34,1.56,0.64,1);"></div>
+      </div>
+      <span style="font-size: 22px; flex-shrink:0;">🏎️</span>
+    </div>
+    <div style="text-align: center; margin-top: 16px;">
+      <div id="lambo-pct" style="font-size: 42px; font-weight: 700; letter-spacing: -2px; color: #111; line-height: 1;">0%</div>
+      <div id="lambo-status" style="font-size: 14px; color: #888; margin-top: 6px; font-style: italic;">Still broke. Keep going.</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const KEY = 'wc_checklist_v3';
+  const STATUSES = [
+    [0,   "Still broke. Keep going."],
+    [5,   "You made a checklist. Cool."],
+    [10,  "LLC filed. Now it's real."],
+    [20,  "Getting somewhere. Don't stop."],
+    [30,  "Arhaan is mildly impressed."],
+    [40,  "Halfway to opening the doors."],
+    [50,  "This might actually work."],
+    [60,  "Investors are starting to call back."],
+    [70,  "Venue secured. Permits in progress."],
+    [80,  "First event is on the calendar."],
+    [90,  "Concrete Ritual Vol. 1 is HAPPENING."],
+    [95,  "Lambo dealership, here we come."],
+    [100, "Keys in hand. You did it."],
+  ];
+
+  function save(state) { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {} }
+  function load() { try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e) { return {}; } }
+
+  function getId(el) {
+    var text = el.querySelector('.item-text').textContent.trim().slice(0, 50);
+    var h = 0;
+    for (var i = 0; i < text.length; i++) { h = ((h << 5) - h) + text.charCodeAt(i); h |= 0; }
+    return 'i' + Math.abs(h).toString(36);
+  }
+
+  function toggle(el) {
+    el.classList.toggle('done');
+    var state = load();
+    state[getId(el)] = el.classList.contains('done');
+    save(state);
+    updateProgress();
+  }
+
+  function resetAll() {
+    document.querySelectorAll('.item.done').forEach(function(el) { el.classList.remove('done'); });
+    save({});
+    updateProgress();
+  }
+
+  function updateProgress() {
+    var all = document.querySelectorAll('.item').length;
+    var done = document.querySelectorAll('.item.done').length;
+    var pct = all ? Math.round(done / all * 100) : 0;
+    document.getElementById('fill').style.width = pct + '%';
+    document.getElementById('pct').textContent = done + ' / ' + all;
+    document.getElementById('lambo-fill').style.width = pct + '%';
+    document.getElementById('lambo-pct').textContent = pct + '%';
+    var status = STATUSES.slice().reverse().find(function(s) { return pct >= s[0]; });
+    document.getElementById('lambo-status').textContent = status[1];
+  }
+
+  window.onload = function() {
+    var state = load();
+    document.querySelectorAll('.item').forEach(function(el) {
+      if (state[getId(el)]) el.classList.add('done');
+    });
+    updateProgress();
+  };
+</script>
+</body>
+</html>
